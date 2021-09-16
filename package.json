@@ -28,8 +28,8 @@
     "lodash": "4.17.21",
     "npm": "^7.23.0",
     "path-webpack": "0.0.3",
-    "react": "*",
-    "react-native": "*",
+    "react": "17.0.2",
+    "react-native": "0.64.2",
     "react-native-static-server": "0.5.0",
     "react-native-webview": "^11.13.0",
     "react-native-zip-archive": "6.0.3",
@@ -39,8 +39,8 @@
     "util": "0.12.4"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "react": "17.0.2",
+    "react-native": "0.64.2"
   },
   "devDependencies": {
     "@babel/cli": "7.15.4",
