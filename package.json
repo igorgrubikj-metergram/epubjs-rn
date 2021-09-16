@@ -10,7 +10,8 @@
     "build": "./node_modules/.bin/babel src/ -d components/",
     "watch": "./node_modules/.bin/babel src/ -d components/ -w",
     "local": "./node_modules/.bin/gulp watch",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "prepare": "npm run build"
   },
   "license": "BSD-2-Clause",
   "dependencies": {
