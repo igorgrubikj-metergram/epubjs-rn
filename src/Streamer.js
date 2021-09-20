@@ -134,7 +134,7 @@ class EpubStreamer {
       finalFileName = uri.filename.split("?")[0].replace(".epub", "");
       console.log("Final File Name", finalFileName);
     } else {
-      finalFileName = uri.filename.replace(".epub", "");
+      finalFileName = uri.Path.directory.split('/')[2];
       console.log("Final File Name", finalFileName);
     }
     return finalFileName;
