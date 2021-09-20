@@ -45,7 +45,7 @@ class EpubStreamer {
         }
       })
       .then(() => {
-        return new StaticServer(this.port, this.root, {localOnly: true});
+        return new StaticServer(this.port, this.root, { localOnly: true });
       })
       .catch((e) => { console.error(e) });
   }
@@ -83,7 +83,7 @@ class EpubStreamer {
 
     return RNFetchBlob
       .config({
-        fileCache : true,
+        fileCache: true,
         path: Dirs.DocumentDir + '/' + filename
       })
       .fetch("GET", bookUrl)
@@ -129,12 +129,15 @@ class EpubStreamer {
   filename(bookUrl) {
     let uri = new Uri(bookUrl);
     let finalFileName;
-    if(uri.filename.indexOf("?") > -1) {
-        finalFileName = uri.filename.split("?")[0].replace(".epub", "");
+    console.log("URI", uri);
+    if (uri.filename.indexOf("?") > -1) {
+      finalFileName = uri.filename.split("?")[0].replace(".epub", "");
+      console.log("Final File Name", finalFileName);
     } else {
-        finalFileName = uri.filename.replace(".epub", "");
+      finalFileName = uri.filename.replace(".epub", "");
+      console.log("Final File Name", finalFileName);
     }
-    return  finalFileName;
+    return finalFileName;
   }
 
   remove(path) {
@@ -145,7 +148,7 @@ class EpubStreamer {
         this.urls.splice(index, 1);
         this.locals.splice(index, 1);
       })
-      .catch((err) => {})
+      .catch((err) => { })
   }
 
   clean() {
