@@ -6,10 +6,10 @@ Uses [EPUB.js](https://github.com/futurepress/epub.js) to parse and render epubs
 Getting Started
 -------------------------
 
-To use the components in your own app install via npm or yarn
+Add in package.json
 
 ```bash
-npm install --save epubjs-rn
+"epubjs-rn": "github:igorgrubikj-metergram/epubjs-rn"
 ```
 
 then link the required libraries with
