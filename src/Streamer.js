@@ -113,6 +113,22 @@ class EpubStreamer {
     return RNFetchBlob.fs.exists(targetPath);
   }
 
+  checkById(bookId) {
+    const targetPath = `${Dirs.DocumentDir}/${this.root}/${bookId}`;
+    return RNFetchBlob.fs.exists(targetPath);
+  }
+
+  async listSavedBooks() {
+    try {
+      let files = await RNFetchBlob.fs.ls(`${Dirs.DocumentDir}/${this.root}`);
+      console.log(files);
+      return files;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  }
+
   get(bookUrl) {
     return this.check(bookUrl)
       .then((exists) => {
@@ -129,10 +145,8 @@ class EpubStreamer {
   filename(bookUrl) {
     let uri = new Uri(bookUrl);
     let finalFileName;
-    console.log("URI", uri);
     if (uri.filename.indexOf("?") > -1) {
       finalFileName = uri.filename.split("?")[0].replace(".epub", "");
-      console.log("Final File Name", finalFileName);
     } else {
       finalFileName = uri.Path.directory.split('/')[2];
       console.log("Final File Name", finalFileName);
