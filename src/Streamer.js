@@ -106,6 +106,17 @@ class EpubStreamer {
       });
   }
 
+  async deleteFile(bookId) {
+    await RNFetchBlob.fs.unlink(`${Dirs.DocumentDir}/${this.root}/${filename}`).then(() => { 
+        return {
+          message: `Epub with id ${bookId} successfully deleted`
+        }
+     })
+     .catch((err) => { 
+        throw new Error('Unable to delete file');
+     })
+  }
+
   check(bookUrl) {
     const filename = this.filename(bookUrl);
     const targetPath = `${Dirs.DocumentDir}/${this.root}/${filename}`;
