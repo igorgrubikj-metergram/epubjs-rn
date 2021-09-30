@@ -107,7 +107,7 @@ class EpubStreamer {
   }
 
   async deleteFile(bookId) {
-    await RNFetchBlob.fs.unlink(`${Dirs.DocumentDir}/${this.root}/${filename}`).then(() => { 
+    await RNFetchBlob.fs.unlink(`${Dirs.DocumentDir}/${this.root}/${bookId}`).then(() => { 
         return {
           message: `Epub with id ${bookId} successfully deleted`
         }
