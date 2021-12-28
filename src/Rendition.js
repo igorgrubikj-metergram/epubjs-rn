@@ -453,6 +453,7 @@ class Rendition extends Component {
           automaticallyAdjustContentInsets={false}
           originWhitelist={['*']}
           allowsLinkPreview={false}
+          onScroll={this.reportLocation.bind(this)}
         />
         {!this.state.loaded ? loader : null}
       </View>
