@@ -1,6 +1,6 @@
 {
   "name": "@metergram/epubjs-rn",
-  "version": "0.2.41",
+  "version": "0.2.42",
   "repository": "https://github.com/igorgrubikj-metergram/epubjs-rn",
   "main": "./components/index.js",
   "private": false,

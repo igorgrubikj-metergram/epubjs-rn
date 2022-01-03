@@ -1,15 +1,8 @@
-import {
-  AppState
-} from 'react-native';
-
 import StaticServer from 'react-native-static-server';
 
 import RNFetchBlob from "rn-fetch-blob";
 
-import { zip, unzip, unzipAssets, subscribe } from 'react-native-zip-archive'
-
-
-import { join } from "path";
+import {unzip} from 'react-native-zip-archive'
 
 const Dirs = RNFetchBlob.fs.dirs
 
@@ -23,7 +16,7 @@ class EpubStreamer {
 
   constructor(opts) {
     opts = opts || {};
-    this.port = opts.port || "3" + Math.round(Math.random() * 1000);
+    this.port = opts.port || "3" + Math.round(Math.random() * (1000 - 100 + 1) + 100);
     this.root = opts.root || "www";
 
     this.serverOrigin = 'file://';
@@ -107,13 +100,13 @@ class EpubStreamer {
   }
 
   async deleteFile(bookId) {
-    await RNFetchBlob.fs.unlink(`${Dirs.DocumentDir}/${this.root}/${bookId}`).then(() => { 
+    await RNFetchBlob.fs.unlink(`${Dirs.DocumentDir}/${this.root}/${bookId}`).then(() => {
         return {
           message: `Epub with id ${bookId} successfully deleted`
         }
      })
-     .catch((err) => { 
-        throw new Error('Unable to delete file');
+     .catch((err) => {
+        throw new Error('Unable to delete file: ', err);
      })
   }
 
@@ -132,10 +125,10 @@ class EpubStreamer {
   async listSavedBooks() {
     try {
       let files = await RNFetchBlob.fs.ls(`${Dirs.DocumentDir}/${this.root}`);
-      console.log(files);
+      // console.log(files);
       return files;
     } catch (error) {
-      console.log(error);
+      console.log('EPUBJS-RN listSavedBooks ERROR: ',error);
       throw new Error(error);
     }
   }
@@ -145,8 +138,7 @@ class EpubStreamer {
       .then((exists) => {
         if (exists) {
           const filename = this.filename(bookUrl);
-          const url = `${this.serverOrigin}/${filename}/`;
-          return url;
+          return `${this.serverOrigin}/${filename}/`;
         }
 
         return this.add(bookUrl);
@@ -160,7 +152,7 @@ class EpubStreamer {
       finalFileName = uri.filename.split("?")[0].replace(".epub", "");
     } else {
       finalFileName = uri.Path.directory.split('/')[2];
-      console.log("Final File Name", finalFileName);
+    // __DEV__ && console.log("Final File Name", finalFileName);
     }
     return finalFileName;
   }
