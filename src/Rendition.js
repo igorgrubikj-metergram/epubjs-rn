@@ -20,7 +20,7 @@ const URL = require("epubjs/libs/url/url-polyfill.js");
 
 const EMBEDDED_HTML = `
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
@@ -117,7 +117,7 @@ class Rendition extends Component {
   load(bookUrl) {
     if (!this._webviewLoaded) return;
 
-    __DEV__ && console.log("loading book: ", bookUrl);
+    // __DEV__ && console.log("loading book: ", bookUrl);
 
     let config = {
       "minSpreadWidth": this.props.minSpreadWidth || 815,
@@ -324,7 +324,7 @@ class Rendition extends Component {
         break;
       }
       case "rendered": {
-        if (!this.state.loaded) {
+        if (!this.state.loaded && this._isMounted) {
           this.setState({loaded: true});
         }
         break;
@@ -332,7 +332,7 @@ class Rendition extends Component {
       case "relocated": {
         let {location} = decoded;
         this._relocated(location);
-        if (!this.state.loaded) {
+        if (!this.state.loaded && this._isMounted) {
           this.setState({loaded: true});
         }
         break;
@@ -418,7 +418,7 @@ class Rendition extends Component {
             backgroundColor: this.props.backgroundColor || "#FFFFFF"
           }]}>
             <ActivityIndicator
-                color={this.props.color || "black"}
+                color={this.props.spinnerColor || "black"}
                 size={this.props.size || "large"}
                 style={{ flex: 1 }}
               />

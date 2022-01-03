@@ -111,55 +111,51 @@ class Epub extends Component{
       return true;
     }
 
-    if (nextProps.color != this.props.color) {
+    if (nextProps.color !== this.props.color) {
       return true;
     }
 
-    if (nextProps.backgroundColor != this.props.backgroundColor) {
+    if (nextProps.backgroundColor !== this.props.backgroundColor) {
       return true;
     }
 
-    if (nextProps.size != this.props.size) {
+    if (nextProps.size !== this.props.size) {
       return true;
     }
 
-    if (nextProps.flow != this.props.flow) {
+    if (nextProps.flow !== this.props.flow) {
       return true;
     }
 
-    if (nextProps.origin != this.props.origin) {
+    if (nextProps.origin !== this.props.origin) {
       return true;
     }
 
-    if (nextProps.orientation != this.props.orientation) {
+    if (nextProps.orientation !== this.props.orientation) {
       return true;
     }
 
-    if (nextProps.src != this.props.src) {
+    if (nextProps.src !== this.props.src) {
       return true;
     }
 
-    if (nextProps.onPress != this.props.onPress) {
+    if (nextProps.onPress !== this.props.onPress) {
       return true;
     }
 
-    if (nextProps.onLongPress != this.props.onLongPress) {
+    if (nextProps.onLongPress !== this.props.onLongPress) {
       return true;
     }
 
-    if (nextProps.onDblPress != this.props.onDblPress) {
+    if (nextProps.onDblPress !== this.props.onDblPress) {
       return true;
     }
 
-    if (nextProps.stylesheet != this.props.stylesheet) {
+    if (nextProps.stylesheet !== this.props.stylesheet) {
       return true;
     }
 
-    if (nextProps.javascript != this.props.javascript) {
-      return true;
-    }
-
-    return false;
+    return nextProps.javascript !== this.props.javascript;
   }
 
   componentDidUpdate(prevProps) {
@@ -199,7 +195,7 @@ class Epub extends Component{
   }
 
   _loadBook(bookUrl) {
-    __DEV__ && console.log("loading book: ", bookUrl);
+    // __DEV__ && console.log("loading book: ", bookUrl);
 
     this.book = ePub({
       replacements: this.props.base64 || "none"
@@ -228,7 +224,7 @@ class Epub extends Component{
   }
 
   _openBook(bookUrl, useBase64) {
-    __DEV__ && console.log("open book: ", bookUrl);
+    // __DEV__ && console.log("open book: ", bookUrl);
 
     var type = useBase64 ? "base64" : null;
 
@@ -239,25 +235,31 @@ class Epub extends Component{
 
     this.book.open(bookUrl)
       .catch((err) => {
-        console.error(err);
+        console.error('EPUBJS-RN ERROR OPENING BOOK:', err);
       })
 
     this.book.ready.then(() => {
       this.isReady = true;
       this.props.onReady && this.props.onReady(this.book);
+    }).catch((err) => {
+      console.warn('EPUBJS-RN book.ready ERROR: ', err);
     });
 
     this.book.loaded.navigation.then((nav) => {
       if(!this.active || !this._isMounted) return;
-      this.setState({toc : nav.toc});
+      this._isMounted && this.setState({toc : nav.toc});
       this.props.onNavigationReady && this.props.onNavigationReady(nav.toc);
+    }).catch((err) => {
+      console.warn('EPUBJS-RN book.loaded.navigation ERROR: ', err);
     });
 
-    if (this.props.generateLocations != false) {
+    if (this.props.generateLocations !== false && this._isMounted) {
       this.loadLocations().then((locations) => {
-        this.rendition.setLocations(locations);
+        this._isMounted && this.rendition.setLocations(locations);
         // this.rendition.reportLocation();
-        this.props.onLocationsReady && this.props.onLocationsReady(this.book.locations);
+        this._isMounted && this.props.onLocationsReady && this.props.onLocationsReady(this.book.locations);
+      }).catch((err) => {
+        console.warn('EPUBJS-RN generateLocations ERROR: ', err);
       });
     }
 
@@ -269,7 +271,7 @@ class Epub extends Component{
       var key = this.book.key()+"-locations";
 
       return AsyncStorage.getItem(key).then((stored) => {
-        if (this.props.regenerateLocations != true && stored !== null){
+        if (this.props.regenerateLocations !== true && stored !== null){
           return this.book.locations.load(stored);
         } else {
           return this.book.locations.generate(this.props.locationsCharBreak || 600).then((locations) => {
@@ -280,6 +282,8 @@ class Epub extends Component{
         }
       })
 
+    }).catch((err) => {
+      console.warn('EPUBJS-RN loadLocations ERROR: ', err);
     });
   }
 
@@ -360,6 +364,7 @@ class Epub extends Component{
         showsVerticalScrollIndicator={this.props.showsVerticalScrollIndicator}
         scrollEnabled={this.props.scrollEnabled}
         pagingEnabled={this.props.pagingEnabled}
+        spinnerColor={this.props.spinnerColor}
       />
     );
   }
