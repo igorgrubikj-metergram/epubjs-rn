@@ -125,7 +125,7 @@ class EpubStreamer {
   async listSavedBooks() {
     try {
       let files = await RNFetchBlob.fs.ls(`${Dirs.DocumentDir}/${this.root}`);
-      console.log('Files: ',files);
+      console.log('Saved books: ',files);
       return files;
     } catch (error) {
       console.log('EPUBJS-RN listSavedBooks ERROR: ',error);
