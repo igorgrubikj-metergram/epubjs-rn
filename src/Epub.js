@@ -195,7 +195,7 @@ class Epub extends Component{
   }
 
   _loadBook(bookUrl) {
-    // __DEV__ && console.log("loading book: ", bookUrl);
+    __DEV__ && console.log("loading book: ", bookUrl);
 
     this.book = ePub({
       replacements: this.props.base64 || "none"
@@ -224,7 +224,7 @@ class Epub extends Component{
   }
 
   _openBook(bookUrl, useBase64) {
-    // __DEV__ && console.log("open book: ", bookUrl);
+    __DEV__ && console.log("open book: ", bookUrl);
 
     var type = useBase64 ? "base64" : null;
 
