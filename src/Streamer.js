@@ -125,7 +125,7 @@ class EpubStreamer {
   async listSavedBooks() {
     try {
       let files = await RNFetchBlob.fs.ls(`${Dirs.DocumentDir}/${this.root}`);
-      // console.log(files);
+      console.log('Files: ',files);
       return files;
     } catch (error) {
       console.log('EPUBJS-RN listSavedBooks ERROR: ',error);
@@ -152,7 +152,7 @@ class EpubStreamer {
       finalFileName = uri.filename.split("?")[0].replace(".epub", "");
     } else {
       finalFileName = uri.Path.directory.split('/')[2];
-    // __DEV__ && console.log("Final File Name", finalFileName);
+    __DEV__ && console.log("Final File Name", finalFileName);
     }
     return finalFileName;
   }
