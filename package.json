@@ -1,6 +1,6 @@
 {
   "name": "@metergram/epubjs-rn",
-  "version": "0.2.43",
+  "version": "0.2.44",
   "repository": "https://github.com/igorgrubikj-metergram/epubjs-rn",
   "main": "./components/index.js",
   "private": false,
@@ -20,7 +20,7 @@
     "@react-native-async-storage/async-storage": "^1.15.8",
     "base-64": "1.0.0",
     "buffer": "6.0.3",
-    "epubjs": "0.3.88",
+    "epubjs": "0.3.84",
     "events": "3.3.0",
     "i": "0.3.6",
     "install": "^0.13.0",

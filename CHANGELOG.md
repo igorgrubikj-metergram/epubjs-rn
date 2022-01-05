@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.44
+
+### Fixed
+
+- Changed `epubjs` to version `0.3.84` to fix the EPUB CFI end location bug. This version appears to be working properly.
+
 ## 0.2.43
 
 ### Fixed
