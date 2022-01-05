@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.43
+
+### Fixed
+
+- Changed `epubjs` (back) to version `0.3.88` to fix the EPUB CFI end location bug.
+- Added a `.then().catch()` for the Promise `rendition.display(target)` in `bridge.js` in an attempt to solve the _Unhandled Promise Rejections_ bug.
+
 ## 0.2.42
 
 ### Fixed
