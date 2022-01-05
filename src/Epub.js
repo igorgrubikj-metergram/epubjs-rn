@@ -54,6 +54,7 @@ class Epub extends Component{
   }
 
   componentDidMount() {
+    console.log('testing epubjs 0.3.84')
     this.active = true;
     this._isMounted = true;
     AppState.addEventListener('change', this._handleAppStateChange.bind(this));
