@@ -81,7 +81,7 @@ window.onerror = function (message, file, line, col, error) {
           }
 
           if (rendition) {
-            rendition.display(target);
+            rendition.display(target).then().catch((error) => console.warn('Bridge rendition display error: ', error));
           } else {
             q.push(message);
           }
