@@ -443,7 +443,7 @@ class Rendition extends Component {
           style={[styles.manager, {
             backgroundColor: this.props.backgroundColor || "#FFFFFF"
           }]}
-          bounces={false}
+          bounces={true}
           javaScriptEnabled={true}
           scrollEnabled={this.props.scrollEnabled}
           pagingEnabled={this.props.pagingEnabled}
