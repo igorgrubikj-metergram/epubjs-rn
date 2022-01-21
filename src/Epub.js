@@ -365,6 +365,7 @@ class Epub extends Component{
         scrollEnabled={this.props.scrollEnabled}
         pagingEnabled={this.props.pagingEnabled}
         spinnerColor={this.props.spinnerColor}
+        bounces={this.props.bounces || false}
       />
     );
   }
