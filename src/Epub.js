@@ -36,7 +36,7 @@ const Path = require("epubjs/lib/utils/path");
 
 import Rendition from './Rendition';
 
-class Epub extends Component{
+class Epub extends Component {
 
   constructor(props) {
     super(props);
@@ -46,8 +46,8 @@ class Epub extends Component{
     this.state = {
       toc: [],
       show: false,
-      width : bounds.width,
-      height : bounds.height,
+      width: bounds.width,
+      height: bounds.height,
       orientation: "PORTRAIT"
     }
 
@@ -62,13 +62,13 @@ class Epub extends Component{
     let orientation = Orientation.getInitialOrientation();
     if (orientation && (orientation === "PORTRAITUPSIDEDOWN" || orientation === "UNKNOWN")) {
       orientation = "PORTRAIT";
-      this.setState({orientation})
+      this.setState({ orientation })
     } else if (orientation) {
-      this.setState({orientation})
+      this.setState({ orientation })
     } else if (orientation === null) {
       // Android starts as null
       orientation = this.state.width > this.state.height ? "LANDSCAPE" : "PORTRAIT";
-      this.setState({orientation})
+      this.setState({ orientation })
     }
     // __DEV__ && console.log("inital orientation", orientation, this.state.width, this.state.height)
 
@@ -94,20 +94,20 @@ class Epub extends Component{
     }
 
     if ((nextProps.width !== this.props.width) ||
-        (nextProps.height !== this.props.height)) {
+      (nextProps.height !== this.props.height)) {
       return true;
     }
 
     if ((nextState.width !== this.state.width) ||
-        (nextState.height !== this.state.height)) {
+      (nextState.height !== this.state.height)) {
       return true;
     }
 
-    if(nextProps.scrollEnabled !== this.props.scrollEnabled) {
+    if (nextProps.scrollEnabled !== this.props.scrollEnabled) {
       return true;
     }
 
-    if(nextProps.pagingEnabled !== this.props.pagingEnabled) {
+    if (nextProps.pagingEnabled !== this.props.pagingEnabled) {
       return true;
     }
 
@@ -173,7 +173,7 @@ class Epub extends Component{
     let wait = 10;
     let _orientation = orientation;
 
-    if(!this.active || !this._isMounted) return;
+    if (!this.active || !this._isMounted) return;
 
     if (orientation === "PORTRAITUPSIDEDOWN" || orientation === "UNKNOWN") {
       _orientation = "PORTRAIT";
@@ -247,8 +247,8 @@ class Epub extends Component{
     });
 
     this.book.loaded.navigation.then((nav) => {
-      if(!this.active || !this._isMounted) return;
-      this._isMounted && this.setState({toc : nav.toc});
+      if (!this.active || !this._isMounted) return;
+      this._isMounted && this.setState({ toc: nav.toc });
       this.props.onNavigationReady && this.props.onNavigationReady(nav.toc);
     }).catch((err) => {
       console.warn('EPUBJS-RN book.loaded.navigation ERROR: ', err);
@@ -269,10 +269,10 @@ class Epub extends Component{
   loadLocations() {
     return this.book.ready.then(() => {
       // Load in stored locations from json or local storage
-      var key = this.book.key()+"-locations";
+      var key = this.book.key() + "-locations";
 
       return AsyncStorage.getItem(key).then((stored) => {
-        if (this.props.regenerateLocations !== true && stored !== null){
+        if (this.props.regenerateLocations !== true && stored !== null) {
           return this.book.locations.load(stored);
         } else {
           return this.book.locations.generate(this.props.locationsCharBreak || 600).then((locations) => {

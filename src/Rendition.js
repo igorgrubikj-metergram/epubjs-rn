@@ -109,7 +109,7 @@ class Rendition extends Component {
     }
 
     if (prevProps.width !== this.props.width ||
-        prevProps.height !== this.props.height) {
+      prevProps.height !== this.props.height) {
       this.resize(this.props.width, this.props.height);
     }
   }
@@ -177,9 +177,9 @@ class Rendition extends Component {
     if (!this._webviewLoaded) return;
 
     if (spine) {
-      this.sendToBridge("display", [{ "spine": spine}]);
+      this.sendToBridge("display", [{ "spine": spine }]);
     } else if (target) {
-      this.sendToBridge("display", [{ "target": target}]);
+      this.sendToBridge("display", [{ "target": target }]);
     } else {
       this.sendToBridge("display");
     }
@@ -189,7 +189,7 @@ class Rendition extends Component {
     if (!w || !h) {
       return;
     }
-    this.sendToBridge("resize", [w,h]);
+    this.sendToBridge("resize", [w, h]);
   }
 
   flow(f) {
@@ -233,29 +233,29 @@ class Rendition extends Component {
     }
   }
 
-  highlight (cfiRange, data, cb, className, style) {
-    this.sendToBridge("highlight", [cfiRange, data, cb, className,style]);
+  highlight(cfiRange, data, cb, className, style) {
+    this.sendToBridge("highlight", [cfiRange, data, cb, className, style]);
   }
 
-  underline (cfiRange, data) {
+  underline(cfiRange, data) {
     this.sendToBridge("underline", [cfiRange, data]);
   }
 
-  mark (cfiRange, data) {
+  mark(cfiRange, data) {
     this.sendToBridge("mark", [cfiRange, data]);
-	}
+  }
 
-  unhighlight (cfiRange) {
+  unhighlight(cfiRange) {
     this.sendToBridge("removeAnnotation", [cfiRange, "highlight"]);
-	}
+  }
 
-	ununderline (cfiRange) {
+  ununderline(cfiRange) {
     this.sendToBridge("removeAnnotation", [cfiRange, "underline"]);
-	}
+  }
 
-	unmark (cfiRange) {
+  unmark(cfiRange) {
     this.sendToBridge("removeAnnotation", [cfiRange, "mark"]);
-	}
+  }
 
   next() {
     this.sendToBridge("next");
@@ -325,20 +325,20 @@ class Rendition extends Component {
       }
       case "rendered": {
         if (!this.state.loaded && this._isMounted) {
-          this.setState({loaded: true});
+          this.setState({ loaded: true });
         }
         break;
       }
       case "relocated": {
-        let {location} = decoded;
+        let { location } = decoded;
         this._relocated(location);
         if (!this.state.loaded && this._isMounted) {
-          this.setState({loaded: true});
+          this.setState({ loaded: true });
         }
         break;
       }
       case "resized": {
-        let {size} = decoded;
+        let { size } = decoded;
         console.log("resized", size.width, size.height);
         break;
       }
@@ -355,22 +355,22 @@ class Rendition extends Component {
         break;
       }
       case "selected": {
-        let {cfiRange} = decoded;
+        let { cfiRange } = decoded;
         this._selected(cfiRange);
         break;
       }
       case "markClicked": {
-        let {cfiRange, data} = decoded;
+        let { cfiRange, data } = decoded;
         this._markClicked(cfiRange, data);
         break;
       }
       case "added": {
-        let {sectionIndex} = decoded;
+        let { sectionIndex } = decoded;
         this.props.onViewAdded && this.props.onViewAdded(sectionIndex);
         break;
       }
       case "removed": {
-        let {sectionIndex} = decoded;
+        let { sectionIndex } = decoded;
         this.props.beforeViewRemoved && this.props.beforeViewRemoved(sectionIndex);
         break;
       }
@@ -415,13 +415,13 @@ class Rendition extends Component {
     let loader = (
       <TouchableOpacity onPress={() => this.props.onPress('')} style={styles.loadScreen}>
         <View style={[styles.loadScreen, {
-            backgroundColor: this.props.backgroundColor || "#FFFFFF"
-          }]}>
-            <ActivityIndicator
-                color={this.props.spinnerColor || "black"}
-                size={this.props.size || "large"}
-                style={{ flex: 1 }}
-              />
+          backgroundColor: this.props.backgroundColor || "#FFFFFF"
+        }]}>
+          <ActivityIndicator
+            color={this.props.spinnerColor || "black"}
+            size={this.props.size || "large"}
+            style={{ flex: 1 }}
+          />
         </View>
       </TouchableOpacity>
     );
@@ -432,14 +432,14 @@ class Rendition extends Component {
 
     return (
       <View ref={this.framerRef} style={[styles.container, {
-          maxWidth: this.props.width, maxHeight: this.props.height,
-          minWidth: this.props.width, minHeight: this.props.height
-        }]}>
+        maxWidth: this.props.width, maxHeight: this.props.height,
+        minWidth: this.props.width, minHeight: this.props.height
+      }]}>
         <WebView
           showsHorizontalScrollIndicator={this.props.showsHorizontalScrollIndicator}
           showsVerticalScrollIndicator={this.props.showsVerticalScrollIndicator}
           ref={this.webviewbridgeRef}
-          source={{html: EMBEDDED_HTML, baseUrl: this.props.url}}
+          source={{ html: EMBEDDED_HTML, baseUrl: this.props.url }}
           style={[styles.manager, {
             backgroundColor: this.props.backgroundColor || "#FFFFFF"
           }]}
@@ -449,7 +449,7 @@ class Rendition extends Component {
           pagingEnabled={this.props.pagingEnabled}
           onMessage={this._onBridgeMessage.bind(this)}
           contentInsetAdjustmentBehavior="never"
-          contentInset={{top: 0}}
+          contentInset={{ top: 0 }}
           automaticallyAdjustContentInsets={false}
           originWhitelist={['*']}
           allowsLinkPreview={false}
