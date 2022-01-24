@@ -241,6 +241,7 @@ class Epub extends Component{
     this.book.ready.then(() => {
       this.isReady = true;
       this.props.onReady && this.props.onReady(this.book);
+      this.props.renditionProvider && this.props.renditionProvider(this.rendition);
     }).catch((err) => {
       console.warn('EPUBJS-RN book.ready ERROR: ', err);
     });
