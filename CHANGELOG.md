@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.45
+
+### Improved
+
+- Added a `renditionProvider` prop to access the `Rendition` class methods like `next()` and `prev()`.
+
 ## 0.2.44
 
 ### Fixed
